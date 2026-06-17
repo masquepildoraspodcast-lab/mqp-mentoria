@@ -107,7 +107,20 @@ optgroup{font-weight:700;font-style:normal;}
 @media(max-width:600px){nav{padding:12px 16px;}.g2{grid-template-columns:1fr;}.doc-paper{padding:24px 20px;}}
 </style>
 </head>
-<body>
+<body><script>
+(function(){
+  var PASSWORD = "Pildorias";
+  var stored = sessionStorage.getItem("mqp_auth");
+  if(stored !== PASSWORD) {
+    var input = prompt("\u{1F511} +Que\u00dadoras \u00b7 Acceso restringido\nIntroduce la contrase\u00f1a:");
+    if(input !== PASSWORD) {
+      document.body.innerHTML = "<div style=\"font-family:sans-serif;text-align:center;padding:80px;color:#0d1f4e\"><h2>Acceso no autorizado</h2><p>Esta herramienta es de uso interno.</p></div>";
+      throw new Error("Unauthorized");
+    }
+    sessionStorage.setItem("mqp_auth", PASSWORD);
+  }
+})();
+</script>
 
 <nav>
   <a href="#" class="nl"><span>+</span>Que Píldoras</a>

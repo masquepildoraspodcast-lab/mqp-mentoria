@@ -82,7 +82,20 @@ input[type=range]{width:100%;accent-color:var(--navy);}
 @media(max-width:600px){.grid2,.hito-grid,.hito-grid2{grid-template-columns:1fr;}nav{padding:14px 20px;}.tabs{padding:0 16px;}.resumen-doc{padding:20px;}}
 </style>
 </head>
-<body>
+<body><script>
+(function(){
+  var PASSWORD = "Pildorias";
+  var stored = sessionStorage.getItem("mqp_auth");
+  if(stored !== PASSWORD) {
+    var input = prompt("\u{1F511} +Que\u00dadoras \u00b7 Acceso restringido\nIntroduce la contrase\u00f1a:");
+    if(input !== PASSWORD) {
+      document.body.innerHTML = "<div style=\"font-family:sans-serif;text-align:center;padding:80px;color:#0d1f4e\"><h2>Acceso no autorizado</h2><p>Esta herramienta es de uso interno.</p></div>";
+      throw new Error("Unauthorized");
+    }
+    sessionStorage.setItem("mqp_auth", PASSWORD);
+  }
+})();
+</script>
 
 <nav>
   <a href="index.html" class="nl"><span>+</span>Que Píldoras</a>
