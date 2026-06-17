@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Carrera · +Que Píldoras Mentoría</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1f4e;--blue:#1a3a8f;--accent:#2d6fd4;--gold:#c9a84c;--white:#fff;--off:#f4f7fc;--text:#0d1f4e;--muted:#4a6090;--border:rgba(13,31,78,0.1);--green:#0e6e55;--sky:#c8deff;--sky2:#ddeeff;--sky3:#eef5ff;--sky4:#f7fbff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--text);min-height:100vh;}
+nav{background:rgba(200,222,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(13,31,78,0.08);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nl{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);text-decoration:none;}.nl span{color:var(--accent);}
+.nav-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.back{font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:5px;transition:color .2s;}.back:hover{color:var(--navy);}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:48px 40px;}
+.hero-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-.5px;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.6);max-width:560px;line-height:1.6;margin-bottom:20px;}
+.progress-dots{display:flex;gap:8px;align-items:center;}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s;}
+.dot.active{background:var(--sky);transform:scale(1.3);}
+.dot.done{background:rgba(126,200,227,.5);}
+.tabs{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;display:flex;gap:0;overflow-x:auto;}
+.tab{padding:14px 20px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s;}
+.tab.active{color:var(--navy);border-bottom-color:var(--accent);font-weight:700;}
+.main{max-width:720px;margin:0 auto;padding:32px 20px 80px;}
+.section{display:none;}.section.active{display:block;}
+.card{background:var(--white);border-radius:16px;border:1px solid var(--border);padding:24px;margin-bottom:16px;}
+.card-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.card-hint{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:16px;line-height:1.5;}
+.label{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:block;}
+input,select,textarea{width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);font-size:14px;color:var(--text);outline:none;font-family:inherit;box-sizing:border-box;line-height:1.5;transition:border-color .2s;}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);}
+textarea{resize:vertical;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.field{margin-bottom:12px;}
+.slider-wrap{margin-top:4px;}
+.slider-labels{display:flex;justify-content:space-between;margin-bottom:4px;}
+.slider-labels span{font-size:11px;color:var(--muted);}
+.slider-val{font-size:18px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:4px;}
+input[type=range]{width:100%;accent-color:var(--navy);}
+/* Plazos */
+.plazo{margin-bottom:24px;}
+.plazo-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.plazo-badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;}
+.plazo-desc{font-size:12px;color:var(--muted);font-style:italic;}
+.hito{border-radius:10px;padding:14px;margin-bottom:8px;}
+.hito-grid{display:grid;grid-template-columns:1fr 130px;gap:8px;margin-bottom:8px;}
+.hito-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.hito-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;display:block;}
+.add-hito{width:100%;padding:8px;border-radius:8px;background:none;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;}
+.del-hito{background:none;border:none;font-size:11px;cursor:pointer;font-family:inherit;padding:0;margin-top:6px;}
+/* Footer */
+.footer-nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;z-index:50;}
+.btn-back{padding:10px 22px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);color:var(--text);font-size:14px;font-family:inherit;cursor:pointer;font-weight:600;}
+.btn-next{padding:10px 28px;border-radius:8px;background:var(--navy);color:#fff;border:none;font-size:14px;font-family:inherit;cursor:pointer;font-weight:700;transition:background .2s;}
+.btn-next:hover{background:var(--accent);}
+/* Resumen */
+.resumen-doc{background:var(--white);border-radius:16px;border:1px solid var(--border);padding:32px 36px;margin-bottom:16px;font-family:'DM Sans',sans-serif;}
+.resumen-doc h1{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--navy);margin-bottom:4px;}
+.resumen-doc .meta{font-size:11px;color:var(--muted);margin-bottom:20px;}
+.resumen-sec{margin-bottom:18px;}
+.resumen-sec h2{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--navy);border-bottom:1.5px solid var(--navy);padding-bottom:3px;margin-bottom:10px;}
+.resumen-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(13,31,78,.04);font-size:13px;gap:12px;}
+.resumen-row span:first-child{color:var(--muted);}
+.resumen-row span:last-child{font-weight:600;text-align:right;}
+.hito-resumen{padding:6px 0 6px 10px;border-left:2px solid var(--border);margin-bottom:6px;}
+.hito-resumen p{font-size:13px;font-weight:600;color:var(--navy);margin:0 0 1px;}
+.hito-resumen small{font-size:11px;color:var(--muted);}
+.cta-final{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:16px;padding:32px;text-align:center;color:#fff;}
+.cta-final h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;margin-bottom:8px;}
+.cta-final p{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px;line-height:1.6;}
+.cta-final a{display:inline-flex;align-items:center;gap:6px;background:var(--sky);color:var(--navy);padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;}
+.cta-final a:hover{background:#fff;}
+.tip{background:var(--sky4);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:8px 12px;margin-bottom:12px;}
+.tip p{font-size:12px;color:var(--navy);line-height:1.5;}
+@media(max-width:600px){.grid2,.hito-grid,.hito-grid2{grid-template-columns:1fr;}nav{padding:14px 20px;}.tabs{padding:0 16px;}.resumen-doc{padding:20px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nl"><span>+</span>Que Píldoras</a>
+  <span class="nav-tag">Mentoría · Plan de Carrera</span>
+  <a href="index.html#mentoria" class="back">← Volver</a>
+</nav>
+
+<div class="hero">
+  <span class="hero-label">+QuePíldoras · Mentoría</span>
+  <h1 class="hero-title">🗺️ Mi Plan de Carrera</h1>
+  <p class="hero-sub">Rellénalo tú solo/a después de la sesión de diagnóstico. Tu mentor/a dará feedback en la próxima sesión.</p>
+  <div class="progress-dots" id="progressDots">
+    <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab(0)">🧭 Punto de partida</button>
+  <button class="tab" onclick="showTab(1)">🗓️ Mis hitos</button>
+  <button class="tab" onclick="showTab(2)">🤝 Compromisos</button>
+</div>
+
+<div class="main">
+
+  <!-- TAB 0: PERFIL -->
+  <div class="section active" id="tab-0">
+    <div class="card">
+      <div class="card-title">¿Quién eres y a dónde vas?</div>
+      <div class="grid2">
+        <div class="field"><label class="label">Tu nombre *</label><input type="text" id="nombre" placeholder="Nombre y apellidos"></div>
+        <div class="field"><label class="label">Rol objetivo *</label>
+          <select id="rolObjetivo">
+            <option value="">Selecciona...</option>
+            <optgroup label="── Médico / Medical Affairs ──">
+            <option>Medical Science Liaison (MSL)</option>
+            <option>Medical Advisor / Medical Affairs</option>
+            <option>Farmacovigilancia / Drug Safety</option>
+            <option>Medical Information</option>
+            </optgroup>
+            <optgroup label="── Ensayos Clínicos ──">
+            <option>Clinical Research Associate (CRA)</option>
+            <option>Clinical Trial Manager (CTM)</option>
+            <option>Data Manager / Bioestadística</option>
+            <option>Regulatory Affairs</option>
+            </optgroup>
+            <optgroup label="── Comercial / Market ──">
+            <option>Delegado/a de Ventas / Visitador/a Médico/a</option>
+            <option>Key Account Manager (KAM)</option>
+            <option>Product Manager / Brand Manager</option>
+            <option>Market Access</option>
+            </optgroup>
+            <optgroup label="── I+D / Investigación ──">
+            <option>Investigador/a Preclínico/a</option>
+            <option>Científico/a de I+D (Drug Discovery)</option>
+            <option>Formulación y Desarrollo Galénico</option>
+            <option>Investigador/a Clínico/a</option>
+            <option>Técnico/a de Laboratorio de I+D</option>
+            </optgroup>
+            <optgroup label="── Fabricación / Operaciones ──">
+            <option>Técnico/a de Producción (Sólidos / Líquidos / Estériles)</option>
+            <option>Técnico/a de Control de Calidad (QC)</option>
+            <option>Especialista en Garantía de Calidad (QA)</option>
+            <option>Técnico/a de Validación</option>
+            <option>Técnico/a de Mantenimiento / Ingeniería Farmacéutica</option>
+            <option>Responsable de Almacén / Logística Farmacéutica</option>
+            <option>Técnico/a de Asuntos Regulatorios CMC</option>
+            </optgroup>
+            <optgroup label="── Otros ──">
+            <option>Otro</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="field" style="grid-column:1/-1"><label class="label">Empresas target (opcional)</label><input type="text" id="empresas" placeholder="Ej: Roche, AstraZeneca, Almirall..."></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">¿Dónde estás hoy?</div>
+      <div class="card-hint">Sé honesto/a. Sin diagnóstico real no hay plan útil.</div>
+      <div class="field"><label class="label">Situación actual</label><textarea id="situacion" rows="2" placeholder="Ej: Recién graduada en Farmacia, sin experiencia en industria. Buscando mi primer empleo en el sector."></textarea></div>
+      <div class="field"><label class="label">¿Por qué este rol y este sector?</label><textarea id="motivacion" rows="2" placeholder="Tu motivación genuina..."></textarea></div>
+      <div class="field" style="margin-bottom:0"><label class="label">¿Qué crees que te falta para conseguirlo?</label><textarea id="gaps" rows="2" placeholder="Ej: Red de contactos, experiencia específica, preparación para entrevistas..."></textarea></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tu situación de partida</div>
+      <div class="grid2">
+        <div>
+          <label class="label">Urgencia para cambiar</label>
+          <div class="slider-wrap">
+            <div class="slider-labels"><span>Sin prisa</span><span>Urgente</span></div>
+            <div class="slider-val" id="urgenciaVal">5/10</div>
+            <input type="range" min="1" max="10" value="5" id="urgencia" oninput="document.getElementById('urgenciaVal').textContent=this.value+'/10'">
+          </div>
+        </div>
+        <div>
+          <label class="label">Confianza en conseguirlo</label>
+          <div class="slider-wrap">
+            <div class="slider-labels"><span>Inseguro/a</span><span>Muy seguro/a</span></div>
+            <div class="slider-val" id="confianzaVal">5/10</div>
+            <input type="range" min="1" max="10" value="5" id="confianza" oninput="document.getElementById('confianzaVal').textContent=this.value+'/10'">
+          </div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:14px;margin-bottom:0"><label class="label">Horas semanales disponibles</label>
+        <select id="horas"><option value="">Selecciona...</option><option>Menos de 2h</option><option>2–4h</option><option>4–8h</option><option>Más de 8h (búsqueda activa)</option></select>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;">
+      <button class="btn-next" onclick="showTab(1)">Definir mis hitos →</button>
+    </div>
+  </div>
+
+  <!-- TAB 1: HITOS -->
+  <div class="section" id="tab-1">
+    <div class="tip"><p>💡 Sé muy concreto/a — no "buscar trabajo" sino "enviar CV a Roche antes del viernes". Tu mentor/a revisará esto contigo.</p></div>
+
+    <div id="plazosContainer"></div>
+
+    <div style="display:flex;justify-content:space-between;margin-top:8px;">
+      <button class="btn-back" onclick="showTab(0)">← Volver</button>
+      <button class="btn-next" onclick="showTab(2)">Mis compromisos →</button>
+    </div>
+  </div>
+
+  <!-- TAB 2: COMPROMISOS -->
+  <div class="section" id="tab-2">
+    <div class="card">
+      <div class="card-title">Compromisos personales</div>
+      <div class="card-hint">Esto es para ti, no para nosotros. La honestidad aquí marca la diferencia entre un plan que se cumple y uno que se archiva.</div>
+      <div class="field"><label class="label">Me comprometo a...</label><textarea id="compromiso" rows="3" placeholder="Ej: Dedicar mínimo 4 horas semanales, ser honesto/a con mi mentor/a cuando algo no funcione..."></textarea></div>
+      <div class="field"><label class="label">Lo que necesito de mi mentor/a</label><textarea id="necesidades" rows="3" placeholder="Ej: Orientación sobre empresas target, contactos en el sector, feedback del CV..."></textarea></div>
+      <div class="field" style="margin-bottom:0"><label class="label">Fecha de revisión del plan</label><input type="date" id="fechaRevision"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎯 Todo listo — ver el plan completo</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Tu plan se ha construido con tus propias palabras. Pulsa para verlo formateado y listo para enviar a tu mentor/a.</p>
+      <button onclick="verResumen()" style="width:100%;padding:12px;border-radius:10px;background:var(--navy);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">
+        🗺️ Ver plan completo →
+      </button>
+    </div>
+
+    <div style="display:flex;justify-content:flex-start;">
+      <button class="btn-back" onclick="showTab(1)">← Revisar hitos</button>
+    </div>
+  </div>
+
+  <!-- TAB 3: RESUMEN (oculto, se activa al pulsar) -->
+  <div class="section" id="tab-3">
+    <div class="resumen-doc" id="resumenDoc"></div>
+    <div class="cta-final">
+      <h3>¡Tu plan está listo!</h3>
+      <p>Selecciona todo el plan (Ctrl+A), cópialo y pégalo en un email o en Word. Luego envíalo a Jaime y Miren.</p>
+      <a href="#" id="emailLink">Enviar a Jaime y Miren ✉️</a>
+    </div>
+    <div style="margin-top:16px;text-align:center;">
+      <button onclick="showTab(2)" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:inherit;">← Volver a editar</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const PLAZOS = [
+  {key:'d30',label:'30 días',icon:'🚀',color:'#0e6e55',bg:'#e6f4f0',desc:'Acciones que puedes empezar esta semana'},
+  {key:'d90',label:'90 días',icon:'🎯',color:'#1a3a6b',bg:'#e8eef8',desc:'Primeros hitos concretos'},
+  {key:'m6', label:'6 meses',icon:'📈',color:'#7b3f00',bg:'#fdf0e6',desc:'¿Dónde quieres estar en 6 meses?'},
+  {key:'m12',label:'12 meses',icon:'⭐',color:'#5c1f8e',bg:'#f2eafa',desc:'Tu objetivo final: el rol conseguido'},
+];
+
+let hitos = {d30:[{a:'',cat:'',fecha:'',res:''}],d90:[{a:'',cat:'',fecha:'',res:''}],m6:[{a:'',cat:'',fecha:'',res:''}],m12:[{a:'',cat:'',fecha:'',res:''}]};
+const CATS = ['Candidaturas','Networking','Formación','LinkedIn','Entrevistas','Investigación','Otro'];
+
+function renderPlazos() {
+  const c = document.getElementById('plazosContainer');
+  c.innerHTML = PLAZOS.map(p => `
+    <div class="plazo">
+      <div class="plazo-header">
+        <span style="font-size:20px">${p.icon}</span>
+        <span class="plazo-badge" style="background:${p.bg};color:${p.color}">${p.label}</span>
+        <span class="plazo-desc">${p.desc}</span>
+      </div>
+      ${hitos[p.key].map((h,i) => `
+        <div class="hito" style="background:${p.bg};border:1px solid ${p.color}20">
+          <div class="hito-grid">
+            <div>
+              <span class="hito-label" style="color:${p.color}">Acción concreta</span>
+              <input type="text" value="${h.a}" onchange="updHito('${p.key}',${i},'a',this.value)" placeholder="Ej: Enviar CV a 5 empresas target">
+            </div>
+            <div>
+              <span class="hito-label" style="color:${p.color}">Fecha límite</span>
+              <input type="date" value="${h.fecha}" onchange="updHito('${p.key}',${i},'fecha',this.value)">
+            </div>
+          </div>
+          <div class="hito-grid2">
+            <div>
+              <span class="hito-label" style="color:${p.color}">Categoría</span>
+              <select onchange="updHito('${p.key}',${i},'cat',this.value)">
+                <option value="">Selecciona...</option>
+                ${CATS.map(c=>`<option${h.cat===c?' selected':''}>${c}</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <span class="hito-label" style="color:${p.color}">Resultado esperado</span>
+              <input type="text" value="${h.res}" onchange="updHito('${p.key}',${i},'res',this.value)" placeholder="Ej: 2 entrevistas conseguidas">
+            </div>
+          </div>
+          ${hitos[p.key].length>1?`<button class="del-hito" style="color:#c0392b" onclick="removeHito('${p.key}',${i})">✕ Eliminar</button>`:''}
+        </div>
+      `).join('')}
+      <button class="add-hito" style="border:2px dashed ${p.color}50;color:${p.color}" onclick="addHito('${p.key}')">+ Añadir acción a ${p.label}</button>
+    </div>
+  `).join('');
+}
+
+function updHito(key,i,field,val){hitos[key][i][field]=val;}
+function addHito(key){hitos[key].push({a:'',cat:'',fecha:'',res:''});renderPlazos();}
+function removeHito(key,i){hitos[key].splice(i,1);renderPlazos();}
+
+let activeTab = 0;
+function showTab(n) {
+  document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n&&n<3));
+  document.querySelectorAll('.dot').forEach((d,i)=>{d.classList.toggle('active',i===n&&n<3);d.classList.toggle('done',i<n&&n<3);});
+  activeTab=n;
+  window.scrollTo(0,0);
+}
+
+function verResumen() {
+  const nombre = document.getElementById('nombre').value || 'Mi nombre';
+  const rol = document.getElementById('rolObjetivo').value || 'Rol objetivo';
+  const total = PLAZOS.reduce((a,p)=>a+hitos[p.key].filter(h=>h.a).length,0);
+
+  let html = `
+    <h1>Mi Plan de Carrera</h1>
+    <div class="meta">${nombre} · +QuePíldoras Mentoría · ${new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})}</div>
+    <div class="resumen-sec">
+      <h2>Objetivo Profesional</h2>
+      <div class="resumen-row"><span>Rol objetivo</span><span><strong>${rol}</strong></span></div>
+      ${document.getElementById('empresas').value?`<div class="resumen-row"><span>Empresas target</span><span>${document.getElementById('empresas').value}</span></div>`:''}
+    </div>
+    <div class="resumen-sec">
+      <h2>Punto de partida</h2>
+      ${document.getElementById('situacion').value?`<div class="resumen-row"><span>Situación</span><span>${document.getElementById('situacion').value}</span></div>`:''}
+      ${document.getElementById('gaps').value?`<div class="resumen-row"><span>Qué me falta</span><span>${document.getElementById('gaps').value}</span></div>`:''}
+      <div class="resumen-row"><span>Urgencia</span><span>${document.getElementById('urgencia').value}/10</span></div>
+      <div class="resumen-row"><span>Confianza</span><span>${document.getElementById('confianza').value}/10</span></div>
+      ${document.getElementById('horas').value?`<div class="resumen-row"><span>Horas/semana</span><span>${document.getElementById('horas').value}</span></div>`:''}
+    </div>
+    <div class="resumen-sec">
+      <h2>Hitos y acciones (${total} definidas)</h2>
+      ${PLAZOS.map(p=>{
+        const h = hitos[p.key].filter(x=>x.a);
+        if(!h.length) return '';
+        return `<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><span>${p.icon}</span><span style="background:${p.bg};color:${p.color};font-weight:700;font-size:11px;padding:2px 8px;border-radius:12px">${p.label}</span></div>${h.map(x=>`<div class="hito-resumen"><p>${x.a}</p><small>${[x.cat,x.res,x.fecha?new Date(x.fecha).toLocaleDateString('es-ES'):''].filter(Boolean).join(' · ')}</small></div>`).join('')}</div>`;
+      }).join('')}
+    </div>
+    ${document.getElementById('compromiso').value?`<div class="resumen-sec"><h2>Compromisos</h2><div class="resumen-row"><span>Me comprometo a</span><span>${document.getElementById('compromiso').value}</span></div>${document.getElementById('necesidades').value?`<div class="resumen-row"><span>Necesito de mi mentor/a</span><span>${document.getElementById('necesidades').value}</span></div>`:''}</div>`:''}
+    <p style="font-size:10px;color:#bbb;text-align:center;margin-top:24px">Plan de Carrera +QuePíldoras · masquepildoraspodcast.com · podcast@masquepildoras.com</p>
+  `;
+  document.getElementById('resumenDoc').innerHTML = html;
+
+  const subject = encodeURIComponent('Plan de Carrera - ' + nombre);
+  const body = encodeURIComponent(`Hola Jaime y Miren,\n\nOs adjunto mi Plan de Carrera completado.\n\nNombre: ${nombre}\nRol objetivo: ${rol}\nTotal de acciones definidas: ${total}\n\nMotivación: ${document.getElementById('motivacion').value||'-'}\nQué me falta: ${document.getElementById('gaps').value||'-'}\nMe comprometo a: ${document.getElementById('compromiso').value||'-'}\nNecesito: ${document.getElementById('necesidades').value||'-'}\n\nQuedo a vuestra disposición para la próxima sesión.\nUn saludo,\n${nombre}`);
+  document.getElementById('emailLink').href = `mailto:podcast@masquepildoras.com?subject=${subject}&body=${body}`;
+
+  showTab(3);
+}
+
+renderPlazos();
+</script>
+</body>
+</html>

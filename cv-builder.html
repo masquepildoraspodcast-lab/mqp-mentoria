@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constructor de CV · +Que Píldoras Mentoría</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1f4e;--blue:#1a3a6b;--accent:#2d6fd4;--gold:#c9a84c;
+  --green:#0e6e55;--red:#c0392b;--white:#fff;--off:#f4f7fc;
+  --text:#0d1f4e;--muted:#4a6090;--border:rgba(13,31,78,0.1);
+  --sky:#c8deff;--sky4:#f7fbff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--text);min-height:100vh;}
+nav{background:rgba(200,222,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nl{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);text-decoration:none;}.nl span{color:var(--accent);}
+.nav-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:36px 40px 0;}
+.hero-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,34px);font-weight:900;color:#fff;margin-bottom:6px;}
+.hero p{font-size:13px;color:rgba(255,255,255,.6);max-width:520px;line-height:1.6;margin-bottom:16px;}
+.step-tabs{display:flex;gap:0;overflow-x:auto;}
+.step-tab{padding:9px 13px;background:none;border:none;color:rgba(255,255,255,.4);font-size:11px;cursor:pointer;border-bottom:2px solid transparent;font-family:inherit;white-space:nowrap;transition:all .15s;}
+.step-tab.active{color:#fff;border-bottom-color:var(--sky);font-weight:700;}
+.step-tab.done{color:rgba(200,222,255,.6);}
+.prog-bar{background:var(--white);padding:10px 40px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;}
+.prog-track{flex:1;background:rgba(13,31,78,.08);border-radius:4px;height:5px;}
+.prog-fill{height:5px;border-radius:4px;background:var(--accent);transition:width .4s;}
+.prog-label{font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap;}
+.main{max-width:700px;margin:0 auto;padding:24px 20px 90px;}
+.step{display:none;}.step.active{display:block;}
+.card{background:var(--white);border-radius:14px;border:1px solid var(--border);padding:20px;margin-bottom:12px;}
+.card-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.card-hint{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:12px;line-height:1.5;}
+label.lbl{display:block;font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+input,select,textarea{width:100%;padding:8px 11px;border-radius:7px;border:1.5px solid var(--border);background:var(--white);font-size:13px;color:var(--text);outline:none;font-family:inherit;box-sizing:border-box;line-height:1.5;transition:border-color .2s;}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);}
+textarea{resize:vertical;}
+optgroup{font-weight:700;font-style:normal;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field{margin-bottom:10px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.chip{padding:5px 11px;border-radius:14px;font-size:12px;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s;}
+.chip.on{border-color:var(--navy);background:var(--navy);color:#fff;}
+.tip{background:var(--sky4);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;padding:8px 12px;margin-bottom:12px;}
+.tip p{font-size:12px;color:var(--navy);line-height:1.5;}
+.type-opt{width:100%;padding:12px 14px;border-radius:10px;border:2px solid var(--border);background:var(--white);text-align:left;cursor:pointer;font-family:inherit;margin-bottom:8px;transition:all .2s;}
+.type-opt.on{border-color:var(--navy);background:var(--sky4);}
+.type-opt strong{display:block;font-size:14px;color:var(--navy);margin-bottom:2px;}
+.type-opt span{font-size:12px;color:var(--muted);}
+.tecnico-card{border-color:rgba(45,111,212,0.3)!important;background:var(--sky4)!important;}
+.badge{display:inline-block;background:rgba(45,111,212,0.12);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:14px;margin-bottom:8px;}
+/* Generar */
+.gen-hero{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:14px;padding:28px;text-align:center;margin-bottom:16px;}
+.gen-hero h3{font-family:'Playfair Display',serif;font-size:20px;color:#fff;margin-bottom:8px;font-weight:900;}
+.gen-hero p{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px;line-height:1.6;}
+.btn-gen{background:var(--gold);color:#fff;border:none;padding:12px 26px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-gen:hover{transform:translateY(-2px);}
+.btn-gen:disabled{background:var(--border);color:var(--muted);cursor:default;transform:none;}
+.tabs-doc{display:flex;gap:4px;background:var(--white);border-radius:10px;padding:4px;border:1px solid var(--border);margin-bottom:14px;}
+.tab-doc{flex:1;padding:8px;border:none;border-radius:7px;background:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s;}
+.tab-doc.on{background:var(--navy);color:#fff;font-weight:700;}
+.preview-box{background:var(--white);border-radius:12px;border:1px solid var(--border);padding:20px;}
+.cv-section-title{font-size:9.5pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy);border-bottom:1.5px solid var(--navy);padding-bottom:2px;margin:14px 0 8px;}
+.tag{display:inline-block;background:#e8eef8;color:var(--navy);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin:2px;}
+.gap-card{background:var(--white);border-radius:10px;border:1px solid var(--border);border-left:4px solid var(--gold);padding:12px 14px;margin-bottom:8px;}
+.gap-card p.gap-title{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:4px;}
+.gap-card p.gap-tip{font-size:12px;color:var(--muted);line-height:1.6;}
+.insight-box{background:#f4f2ed;border-radius:10px;padding:14px;margin-top:8px;border:1px solid rgba(13,31,78,.08);}
+.insight-box p{font-size:12px;color:var(--text);line-height:1.6;}
+.insight-quote{font-style:italic;color:var(--muted);margin:6px 0!important;}
+/* Modal documento */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;flex-direction:column;}
+.modal.open{display:flex;}
+.modal-bar{background:var(--navy);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.modal-bar span{color:#fff;font-weight:700;font-size:13px;}
+.modal-actions{display:flex;gap:8px;}
+.modal-btn{background:rgba(255,255,255,.15);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;}
+.modal-btn.red{background:var(--red);}
+.modal-scroll{flex:1;overflow:auto;background:#d0cdc8;padding:20px 16px;}
+.doc-paper{max-width:680px;margin:0 auto;background:#fff;border-radius:4px;padding:48px 52px;box-shadow:0 4px 24px rgba(0,0,0,.2);font-family:Arial,sans-serif;font-size:11pt;color:#1a1a2e;line-height:1.55;}
+.doc-h1{font-size:18pt;font-weight:900;color:#0d1f4e;margin-bottom:3px;}
+.doc-meta{font-size:9pt;color:#6b7280;margin-bottom:18px;}
+.doc-sec{font-size:9.5pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0d1f4e;border-bottom:1.5px solid #0d1f4e;padding-bottom:2px;margin:14px 0 8px;}
+.doc-highlight{background:#f4f2ed;border-left:3px solid #0d1f4e;padding:8px 10px;margin-bottom:12px;font-size:10.5pt;}
+.doc-row{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:8px;}
+.doc-cargo{font-weight:700;font-size:11pt;}
+.doc-empresa{font-size:10pt;color:#1a3a6b;font-weight:600;}
+.doc-periodo{font-size:9pt;color:#6b7280;}
+.doc-ul{margin:4px 0 0 14px;padding:0;}
+.doc-ul li{font-size:9.5pt;margin-bottom:2px;}
+.doc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;}
+.doc-tag{background:#e8eef8;color:#0d1f4e;padding:2px 7px;border-radius:10px;font-size:8.5pt;font-weight:600;}
+.doc-footer{font-size:7.5pt;color:#bbb;text-align:center;margin-top:28px;}
+.copy-tip{max-width:680px;margin:10px auto 0;background:#fffbea;border:1px solid #f6d860;border-radius:8px;padding:10px 14px;}
+.copy-tip p{font-size:11px;color:#7a5010;line-height:1.5;}
+/* Footer nav */
+.foot-nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);padding:11px 20px;display:flex;justify-content:space-between;z-index:50;}
+.btn-back{padding:9px 20px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);color:var(--text);font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;}
+.btn-next{padding:9px 26px;border-radius:8px;background:var(--navy);color:#fff;border:none;font-size:13px;font-family:inherit;cursor:pointer;font-weight:700;}
+.btn-next:disabled{background:var(--border);color:var(--muted);cursor:default;}
+@media(max-width:600px){nav{padding:12px 16px;}.g2{grid-template-columns:1fr;}.doc-paper{padding:24px 20px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nl"><span>+</span>Que Píldoras</a>
+  <span class="nav-tag">Mentoría · Constructor de CV</span>
+</nav>
+
+<div class="hero">
+  <span class="hero-label">+QuePíldoras · Mentoría</span>
+  <h1>✨ Constructor de CV con IA</h1>
+  <p>Rellena el formulario paso a paso. Al final generamos tu CV, carta de presentación y análisis de gaps con el lenguaje real del sector farmacéutico.</p>
+  <div class="step-tabs" id="stepTabs">
+    <button class="step-tab active" data-step="0">👤 Perfil</button>
+    <button class="step-tab" data-step="1">🎯 Objetivo</button>
+    <button class="step-tab" data-step="2">🎓 Formación</button>
+    <button class="step-tab" data-step="3">🧠 Cómo eres</button>
+    <button class="step-tab" data-step="4">🌍 Idiomas</button>
+    <button class="step-tab" data-step="5">✨ Generar</button>
+  </div>
+</div>
+
+<div class="prog-bar">
+  <div class="prog-track"><div class="prog-fill" id="progFill" style="width:16%"></div></div>
+  <span class="prog-label" id="progLabel">Paso 1 de 6</span>
+</div>
+
+<!-- MODAL DOCUMENTO -->
+<div class="modal" id="docModal">
+  <div class="modal-bar">
+    <span id="modalTitle">📄 CV</span>
+    <div class="modal-actions">
+      <button class="modal-btn" id="btnSwitch">Ver Carta →</button>
+      <button class="modal-btn red" onclick="closeModal()">✕ Cerrar</button>
+    </div>
+  </div>
+  <div class="modal-scroll">
+    <div class="doc-paper" id="docPaper"></div>
+    <div class="copy-tip">
+      <p><strong>📋 Cómo guardar:</strong> Selecciona todo (Ctrl+A), copia (Ctrl+C) y pega en Word o Google Docs. O usa Ctrl+P para guardar como PDF.</p>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PASO 0: PERFIL -->
+  <div class="step active" id="step-0">
+    <div class="card">
+      <div class="card-title">¿Tienes experiencia profesional?</div>
+      <div class="card-hint">Esto adapta el formulario a tu situación.</div>
+      <button class="type-opt" id="opt-junior" onclick="setTipo('junior')">
+        <strong>🎓 Recién graduado/a o menos de 1 año de experiencia</strong>
+        <span>Acabas de terminar la carrera o llevas poco tiempo trabajando</span>
+      </button>
+      <button class="type-opt" id="opt-senior" onclick="setTipo('senior')">
+        <strong>💼 Tengo experiencia profesional relevante</strong>
+        <span>Ya has trabajado en el sector o en puestos relacionados</span>
+      </button>
+    </div>
+    <div id="datos-personales" style="display:none">
+      <div class="card">
+        <div class="card-title">Datos de contacto</div>
+        <div class="g2">
+          <div class="field"><label class="lbl">Nombre *</label><input id="nombre" placeholder="Tu nombre"></div>
+          <div class="field"><label class="lbl">Apellidos *</label><input id="apellidos" placeholder="Tus apellidos"></div>
+          <div class="field"><label class="lbl">Email *</label><input type="email" id="email" placeholder="tu@email.com"></div>
+          <div class="field"><label class="lbl">Teléfono</label><input id="telefono" placeholder="+34 6XX XXX XXX"></div>
+          <div class="field"><label class="lbl">Ciudad</label><input id="ciudad" placeholder="Madrid, España"></div>
+          <div class="field"><label class="lbl">LinkedIn</label><input id="linkedin" placeholder="linkedin.com/in/tu-perfil"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 1: OBJETIVO -->
+  <div class="step" id="step-1">
+    <div class="tip"><p>💡 El rol objetivo define todo el CV. Claude adaptará el lenguaje específicamente a este puesto.</p></div>
+    <div class="card">
+      <div class="card-title">Rol objetivo *</div>
+      <div class="field">
+        <select id="rolObjetivo" onchange="onRolChange(this.value)">
+          <option value="">¿A qué puesto quieres llegar?</option>
+          <optgroup label="── Médico / Medical Affairs ──">
+            <option value="MSL">Medical Science Liaison (MSL)</option>
+            <option value="MedAdvisor">Medical Advisor / Medical Affairs</option>
+            <option value="Farmacovigilancia">Farmacovigilancia / Drug Safety</option>
+            <option value="MedInfo">Medical Information</option>
+          </optgroup>
+          <optgroup label="── Ensayos Clínicos ──">
+            <option value="CRA">Clinical Research Associate (CRA)</option>
+            <option value="CTM">Clinical Trial Manager (CTM)</option>
+            <option value="DataManager">Data Manager / Bioestadística</option>
+            <option value="Regulatory">Regulatory Affairs</option>
+          </optgroup>
+          <optgroup label="── Comercial / Market ──">
+            <option value="Delegado">Delegado/a de Ventas / Visitador/a Médico/a</option>
+            <option value="KAM">Key Account Manager (KAM)</option>
+            <option value="ProductManager">Product Manager / Brand Manager</option>
+            <option value="MarketAccess">Market Access</option>
+          </optgroup>
+          <optgroup label="── I+D / Investigación ──">
+            <option value="InvPreClinico">Investigador/a Preclínico/a</option>
+            <option value="IDDrugDiscovery">Científico/a de I+D (Drug Discovery)</option>
+            <option value="Formulacion">Formulación y Desarrollo Galénico</option>
+            <option value="InvClinico">Investigador/a Clínico/a</option>
+            <option value="TecLabID">Técnico/a de Laboratorio de I+D</option>
+          </optgroup>
+          <optgroup label="── Fabricación / Operaciones ──">
+            <option value="Produccion">Técnico/a de Producción (Sólidos/Líquidos/Estériles)</option>
+            <option value="QC">Técnico/a de Control de Calidad (QC)</option>
+            <option value="QA">Especialista en Garantía de Calidad (QA)</option>
+            <option value="Validacion">Técnico/a de Validación</option>
+            <option value="Mantenimiento">Técnico/a de Mantenimiento / Ingeniería Farmacéutica</option>
+            <option value="Logistica">Responsable de Almacén / Logística Farmacéutica</option>
+            <option value="RegCMC">Técnico/a de Asuntos Regulatorios CMC</option>
+          </optgroup>
+          <optgroup label="── Otros ──">
+            <option value="Otro">Otro</option>
+          </optgroup>
+        </select>
+      </div>
+      <div id="otro-rol" style="display:none" class="field">
+        <label class="lbl">Especifica el rol</label>
+        <input id="otroRol" placeholder="Ej: Clinical Data Manager">
+      </div>
+      <div id="rol-insight" style="display:none;background:#e6f4f0;border-radius:10px;padding:12px 14px;margin-top:8px;border:1px solid rgba(14,110,85,0.2)">
+        <p style="font-weight:700;color:#0e6e55;font-size:12px;margin-bottom:4px">✅ Insights reales del sector para este rol</p>
+        <p id="rol-insight-text" style="font-size:12px;color:#1a1a2e;line-height:1.5"></p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="field"><label class="lbl">Empresas target (opcional)</label><input id="empresasTarget" placeholder="Ej: Roche, AstraZeneca, Almirall, Grifols, Esteve..."></div>
+      <div class="field" style="margin-bottom:0"><label class="lbl">¿Por qué este sector y este rol?</label><textarea id="motivacion" rows="3" placeholder="Con tus palabras, sin filtros..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- PASO 2: FORMACIÓN -->
+  <div class="step" id="step-2">
+    <!-- Junior -->
+    <div id="form-junior">
+      <div class="card">
+        <div class="card-title">Tu titulación</div>
+        <div class="g2">
+          <div class="field"><label class="lbl">Carrera</label>
+            <select id="carrera">
+              <option value="">Selecciona...</option>
+              <option>Farmacia</option><option>Medicina</option><option>Biología</option>
+              <option>Bioquímica</option><option>Química</option><option>Biotecnología</option>
+              <option>Enfermería</option><option>Nutrición y Dietética</option>
+              <option>Fisioterapia</option><option>Veterinaria</option>
+              <option>Ingeniería Química / Industrial</option><option>Psicología</option><option>Otro</option>
+            </select>
+          </div>
+          <div class="field"><label class="lbl">Año de graduación</label><input id="anioFin" placeholder="2024"></div>
+          <div class="field" style="grid-column:1/-1"><label class="lbl">Universidad</label><input id="universidad" placeholder="Ej: Universidad Complutense de Madrid"></div>
+          <div class="field"><label class="lbl">Nota media (opcional)</label><input id="notaMedia" placeholder="Ej: 7,8"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">TFG / TFM</div>
+        <div class="field"><label style="display:flex;gap:8px;align-items:center;cursor:pointer;font-size:14px;color:var(--text)"><input type="checkbox" id="tieneTFG" onchange="document.getElementById('tfg-detail').style.display=this.checked?'block':'none'" style="width:auto"> Tengo TFG/TFM relevante para incluir</label></div>
+        <div id="tfg-detail" style="display:none">
+          <div class="field"><label class="lbl">Título</label><input id="tituloTFG" placeholder="Ej: Evaluación de anticuerpos monoclonales en NSCLC"></div>
+          <div class="field" style="margin-bottom:0"><label class="lbl">Descripción breve</label><textarea id="descTFG" rows="3" placeholder="Ej: Revisión sistemática de 32 ensayos clínicos, análisis estadístico de supervivencia global..."></textarea></div>
+        </div>
+      </div>
+    </div>
+    <!-- Senior -->
+    <div id="form-senior" style="display:none">
+      <div id="exp-container">
+        <div class="card exp-card">
+          <div class="card-title">Experiencia 1</div>
+          <div class="g2">
+            <div class="field"><label class="lbl">Empresa</label><input class="exp-empresa" placeholder="Nombre de la empresa"></div>
+            <div class="field"><label class="lbl">Cargo</label><input class="exp-cargo" placeholder="Tu título exacto"></div>
+            <div class="field"><label class="lbl">Inicio</label><input class="exp-inicio" placeholder="Mar 2021"></div>
+            <div class="field"><label class="lbl">Fin</label><input class="exp-fin" placeholder="Dic 2023 / Presente"></div>
+          </div>
+          <div class="field"><label class="lbl">¿Qué hacías?</label><textarea class="exp-desc" rows="2" placeholder="Describe tus responsabilidades..."></textarea></div>
+          <div class="field" style="margin-bottom:0"><label class="lbl">Logros concretos</label><textarea class="exp-logros" rows="2" placeholder="Ej: Reduje el tiempo de enrolamiento un 30%..."></textarea></div>
+        </div>
+      </div>
+      <button onclick="addExp()" style="width:100%;padding:9px;border:2px dashed var(--border);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:inherit;margin-bottom:12px">+ Añadir experiencia</button>
+      <div class="card">
+        <div class="card-title">Formación académica</div>
+        <div class="g2">
+          <div class="field"><label class="lbl">Título</label><input id="sen-titulo" placeholder="Grado en Farmacia / Máster..."></div>
+          <div class="field"><label class="lbl">Institución</label><input id="sen-institucion" placeholder="UCM / CESIF..."></div>
+          <div class="field"><label class="lbl">Año</label><input id="sen-anio" placeholder="2020"></div>
+          <div class="field"><label class="lbl">Tipo</label>
+            <select id="sen-tipo"><option>Grado/Licenciatura</option><option>Máster/Posgrado</option><option>Doctorado</option><option>Certificación</option></select>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0"><label class="lbl">Resumen profesional (borrador)</label><textarea id="sen-resumen" rows="3" placeholder="Cuéntanos quién eres, qué has hecho y qué buscas..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 3: CÓMO ERES -->
+  <div class="step" id="step-3">
+    <div class="tip"><p>💡 No necesitas saber el nombre técnico de tus habilidades — Claude las traduce al lenguaje del sector. Selecciona hasta 8.</p></div>
+    <div class="card">
+      <div class="card-title">¿Cómo eres? (máx. 8)</div>
+      <div class="chips" id="rasgosChips">
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Me gusta explicar cosas complejas de forma sencilla</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Soy muy organizado/a y metódico/a</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Me adapto rápido a situaciones nuevas</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Disfruto trabajando con personas y construyendo relaciones</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Me apasiona la investigación y el análisis de datos</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Soy proactivo/a y tomo iniciativa sin que me lo pidan</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Tengo mucha empatía y escucha activa</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Me motiva trabajar con impacto real en pacientes</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Soy muy detallista y riguroso/a</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Me siento cómodo/a presentando en público</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Aprendo rápido tecnologías y herramientas nuevas</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Sé trabajar bien bajo presión y con plazos ajustados</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Me gusta liderar y organizar equipos o proyectos</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Soy persistente y no me rindo fácilmente</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Tengo curiosidad científica constante</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Me siento cómodo/a siguiendo protocolos y procedimientos estrictos</button>
+        <button class="chip" onclick="toggleChip(this,'rasgos')">Disfruto resolviendo problemas técnicos complejos</button>
+      </div>
+      <p id="rasgos-max" style="display:none;font-size:11px;color:var(--gold);margin-top:6px">Máximo 8 rasgos seleccionados</p>
+    </div>
+
+    <!-- Técnico: visible solo para I+D y Fabricación -->
+    <div id="tecnico-block" style="display:none">
+      <div class="card tecnico-card">
+        <span class="badge">🔬 Específico para I+D y Fabricación</span>
+        <div class="card-title">Experiencia técnica de laboratorio / planta</div>
+        <div class="card-hint">Selecciona lo que aplique a tu perfil real.</div>
+        <div class="field">
+          <label class="lbl">Técnicas que dominas</label>
+          <div class="chips" id="tecnicasChips">
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">HPLC / Cromatografía</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Espectroscopía (UV/IR/MS)</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Cultivo celular</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">PCR / qPCR</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Electroforesis / Western Blot</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">ELISA / Inmunoensayos</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Microscopía (confocal / electrónica)</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Síntesis química / orgánica</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Formulación farmacéutica</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">BPF / GMP</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">BPL / GLP</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Control estadístico de procesos (SPC)</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Validación de procesos / métodos</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Sistemas LIMS / SAP QM</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Biorreactores / fermentación</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Liofilización</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">Análisis microbiológico</button>
+            <button class="chip" onclick="toggleChip(this,'tecnicas')">R / Python / análisis de datos</button>
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px">
+          <label class="lbl">Entorno de trabajo</label>
+          <div class="chips" id="entornoChips">
+            <button class="chip" onclick="toggleChip(this,'entorno')">Laboratorio de investigación universitario</button>
+            <button class="chip" onclick="toggleChip(this,'entorno')">CRO / CDMO</button>
+            <button class="chip" onclick="toggleChip(this,'entorno')">Planta de fabricación farmacéutica</button>
+            <button class="chip" onclick="toggleChip(this,'entorno')">Laboratorio de control de calidad</button>
+            <button class="chip" onclick="toggleChip(this,'entorno')">Sala blanca / área aséptica</button>
+            <button class="chip" onclick="toggleChip(this,'entorno')">Biotecnológica / start-up</button>
+            <button class="chip" onclick="toggleChip(this,'entorno')">Gran multinacional farmacéutica</button>
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px;margin-bottom:0">
+          <label class="lbl">Software / herramientas específicas</label>
+          <input id="softwareTecnico" placeholder="Ej: GraphPad Prism, Empower, LabX, SAP QM, MasterControl, EtQ...">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">¿Qué has hecho?</div>
+      <div class="card-hint">Todo cuenta: prácticas, trabajos de verano, deporte de equipo, delegado/a de clase...</div>
+      <div class="chips" id="actividadesChips">
+        <button class="chip" onclick="toggleChip(this,'actividades')">Prácticas en farmacia comunitaria u hospitalaria</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Prácticas en laboratorio de investigación</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Prácticas en empresa farmacéutica o CRO</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Prácticas en planta de fabricación</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Trabajo fin de grado / máster experimental</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Participación en congresos científicos</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Delegado/a de clase o representante estudiantil</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Voluntariado relacionado con salud</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Monitor/a de clases o tutor/a</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Trabajo en atención al cliente (cualquier sector)</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Deporte federado o competición</button>
+        <button class="chip" onclick="toggleChip(this,'actividades')">Asociaciones universitarias o clubs</button>
+      </div>
+      <div class="field" style="margin-top:10px;margin-bottom:0">
+        <label class="lbl">Cuéntanos más</label>
+        <textarea id="descActividades" rows="4" placeholder="Describe brevemente las actividades más importantes. Cualquier detalle ayuda."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4: IDIOMAS -->
+  <div class="step" id="step-4">
+    <div class="card">
+      <div class="card-title">Idiomas</div>
+      <div class="card-hint">El inglés es prácticamente obligatorio en la industria farmacéutica.</div>
+      <div id="idiomasContainer">
+        <div class="g2 idioma-row" style="margin-bottom:10px">
+          <div><label class="lbl">Idioma</label><select class="idioma-sel"><option>Inglés</option><option>Español</option><option>Francés</option><option>Alemán</option><option>Italiano</option><option>Portugués</option><option>Otro</option></select></div>
+          <div><label class="lbl">Nivel</label><select class="nivel-sel"><option>Nativo</option><option>C2</option><option>C1</option><option selected>B2</option><option>B1</option><option>A2</option></select></div>
+        </div>
+      </div>
+      <button onclick="addIdioma()" style="background:none;border:none;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;padding:0;font-family:inherit">+ Añadir idioma</button>
+    </div>
+    <div class="card">
+      <div class="card-title">Competencias adicionales</div>
+      <div class="chips" id="compChips">
+        <button class="chip" onclick="toggleChip(this,'comp')">Comunicación científica adaptada</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">KOL Management</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Gestión de proyectos</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">CRM (Veeva / Salesforce)</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Cross-functional collaboration</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Ensayos clínicos GCP</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Regulatory Affairs</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Market Access</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Farmacovigilancia</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Síntesis de evidencia científica</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Networking con KOLs</button>
+        <button class="chip" onclick="toggleChip(this,'comp')">Formación interna a equipos</button>
+      </div>
+      <div class="field" style="margin-top:10px;margin-bottom:0">
+        <label class="lbl">Otras (texto libre)</label>
+        <input id="otrasComp" placeholder="Ej: R Studio, Python, gestión de equipos, presentaciones científicas...">
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 5: GENERAR -->
+  <div class="step" id="step-5">
+    <!-- API Key — solo para uso interno / pruebas -->
+    <div style="background:#fffbea;border:1px solid rgba(201,168,76,0.4);border-radius:10px;padding:12px 14px;margin-bottom:12px">
+      <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:6px">🔑 Configuración interna · Solo mentores</p>
+      <input id="apiKeyInput" type="password" placeholder="sk-ant-api03-..." style="font-size:12px;font-family:monospace" autocomplete="off">
+      <p style="font-size:11px;color:var(--muted);margin-top:4px">Introduce la API Key de Anthropic para activar la generación con IA.</p>
+    </div>
+    <div class="gen-hero">
+      <div style="font-size:36px;margin-bottom:8px" id="genIcon">✨</div>
+      <h3 id="genTitle">Generar tu pack de candidatura</h3>
+      <p id="genSubtitle">Claude reescribirá tu perfil con lenguaje profesional del sector farmacéutico, verbos de acción y keywords ATS.</p>
+      <button class="btn-gen" id="btnGenerar" onclick="generarCV()">✨ Generar CV + Carta + Tips →</button>
+      <p id="genError" style="display:none;color:#ff9090;font-size:13px;margin-top:12px"></p>
+    </div>
+
+    <div id="resultado" style="display:none">
+      <div class="tabs-doc">
+        <button class="tab-doc on" onclick="showTab('cv',this)">📄 CV</button>
+        <button class="tab-doc" onclick="showTab('carta',this)">✉️ Carta</button>
+        <button class="tab-doc" onclick="showTab('gaps',this)">🎯 Tips</button>
+      </div>
+
+      <div id="tab-cv" class="preview-box">
+        <p style="font-weight:700;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Vista previa del CV</p>
+        <div id="cv-resumen" style="border-left:3px solid var(--navy);padding:8px 12px;background:var(--off);margin-bottom:14px;font-style:italic;font-size:13px;line-height:1.6"></div>
+        <div id="cv-exps"></div>
+        <p class="cv-section-title">Competencias Clave</p>
+        <div id="cv-comps"></div>
+        <button onclick="openModal('cv')" style="width:100%;margin-top:14px;padding:10px;border-radius:8px;background:var(--navy);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">📄 Ver CV completo y listo para copiar</button>
+      </div>
+
+      <div id="tab-carta" class="preview-box" style="display:none">
+        <div id="carta-preview" style="font-family:'Georgia',serif;font-size:14px;line-height:1.8;color:var(--text)"></div>
+        <button onclick="openModal('carta')" style="width:100%;margin-top:14px;padding:10px;border-radius:8px;background:var(--blue);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">✉️ Ver Carta completa y lista para copiar</button>
+      </div>
+
+      <div id="tab-gaps" style="display:none">
+        <div id="gaps-list"></div>
+        <div id="insight-panel" style="display:none" class="insight-box">
+          <p style="font-weight:700;font-size:12px;color:var(--navy);margin-bottom:6px">🎙️ Lo que dice el sector</p>
+          <p id="insight-fuente" style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:6px"></p>
+          <p id="insight-frase" class="insight-quote"></p>
+          <p id="insight-consejo" style="font-size:12px;color:var(--green);font-weight:600;margin-top:6px!important"></p>
+        </div>
+        <div style="background:#e6f4f0;border-radius:10px;padding:14px 16px;margin-top:10px;border:1px solid rgba(14,110,85,.2)">
+          <p style="font-weight:700;color:#0e6e55;margin-bottom:4px;font-size:13px">📩 Próximo paso</p>
+          <p style="font-size:13px;color:var(--text);line-height:1.6">Descarga tu CV y carta y envíalos a <strong>podcast@masquepildoras.com</strong>. Jaime o Miren contactarán contigo en 48h.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer nav -->
+<div class="foot-nav" id="footNav">
+  <button class="btn-back" id="btnBack" onclick="changeStep(-1)" style="display:none">← Anterior</button>
+  <div style="flex:1"></div>
+  <button class="btn-next" id="btnNext" onclick="changeStep(1)">Siguiente →</button>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────────
+let step = 0;
+const TOTAL = 6;
+let tipo = '';
+let chips = { rasgos:[], actividades:[], tecnicas:[], entorno:[], comp:[] };
+
+const ROLES_TECNICOS = ['InvPreClinico','IDDrugDiscovery','Formulacion','InvClinico','TecLabID','Produccion','QC','QA','Validacion','Mantenimiento','Logistica','RegCMC'];
+
+const ROLE_LABELS = {
+  MSL:'Medical Science Liaison (MSL)',MedAdvisor:'Medical Advisor / Medical Affairs',
+  Farmacovigilancia:'Farmacovigilancia / Drug Safety',MedInfo:'Medical Information',
+  CRA:'Clinical Research Associate (CRA)',CTM:'Clinical Trial Manager (CTM)',
+  DataManager:'Data Manager / Bioestadística',Regulatory:'Regulatory Affairs',
+  Delegado:'Delegado/a de Ventas',KAM:'Key Account Manager (KAM)',
+  ProductManager:'Product Manager / Brand Manager',MarketAccess:'Market Access',
+  InvPreClinico:'Investigador/a Preclínico/a',IDDrugDiscovery:'Científico/a de I+D (Drug Discovery)',
+  Formulacion:'Formulación y Desarrollo Galénico',InvClinico:'Investigador/a Clínico/a',
+  TecLabID:'Técnico/a de Laboratorio de I+D',Produccion:'Técnico/a de Producción',
+  QC:'Técnico/a de Control de Calidad (QC)',QA:'Especialista en Garantía de Calidad (QA)',
+  Validacion:'Técnico/a de Validación',Mantenimiento:'Técnico/a de Mantenimiento',
+  Logistica:'Responsable de Almacén / Logística',RegCMC:'Técnico/a Regulatory CMC',Otro:'Otro'
+};
+
+const INSIGHTS = {
+  MSL:{
+    fuente:'Pablo del Pino · Medical Advisor & MSL Manager · Uriach (EP02)',
+    frase:'"Busco a alguien azul — muy analítico con los datos — pero sin descuidar el lado verde, con mucha empatía para el día a día."',
+    consejo:'💡 Durante las prácticas, quédate más tiempo del necesario. Los contactos valen más que irte puntual.',
+    tip:'Empathy, organización y capacidad de venta consultiva son las tres skills esenciales según un MSL Manager real.'
+  }
+};
+
+// ── UI HELPERS ─────────────────────────────────────────────────────────────
+function updateProgress() {
+  const pct = Math.round(((step+1)/TOTAL)*100);
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progLabel').textContent = 'Paso '+(step+1)+' de '+TOTAL;
+  document.querySelectorAll('.step-tab').forEach((t,i)=>{
+    t.className='step-tab'+(i===step?' active':i<step?' done':'');
+  });
+  document.getElementById('btnBack').style.display = step===0?'none':'block';
+  document.getElementById('btnNext').textContent = step===TOTAL-1?'':'Siguiente →';
+  document.getElementById('footNav').style.display = step===TOTAL-1?'none':'flex';
+}
+
+function changeStep(dir) {
+  if (dir===1 && !canNext()) return;
+  document.getElementById('step-'+step).classList.remove('active');
+  step = Math.max(0, Math.min(TOTAL-1, step+dir));
+  document.getElementById('step-'+step).classList.add('active');
+  updateProgress();
+  window.scrollTo(0,0);
+}
+
+function canNext() {
+  if (step===0) return tipo && v('nombre') && v('apellidos') && v('email');
+  if (step===1) return !!v('rolObjetivo');
+  return true;
+}
+
+function v(id) { const el=document.getElementById(id); return el?el.value.trim():''; }
+
+document.querySelectorAll('.step-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    const target=parseInt(t.dataset.step);
+    if (target<step) {
+      document.getElementById('step-'+step).classList.remove('active');
+      step=target;
+      document.getElementById('step-'+step).classList.add('active');
+      updateProgress(); window.scrollTo(0,0);
+    }
+  });
+});
+
+// ── TIPO PERFIL ────────────────────────────────────────────────────────────
+function setTipo(t) {
+  tipo = t;
+  document.getElementById('opt-junior').classList.toggle('on', t==='junior');
+  document.getElementById('opt-senior').classList.toggle('on', t==='senior');
+  document.getElementById('datos-personales').style.display = 'block';
+  document.getElementById('form-junior').style.display = t==='junior'?'block':'none';
+  document.getElementById('form-senior').style.display = t==='senior'?'block':'none';
+}
+
+// ── ROL CHANGE ─────────────────────────────────────────────────────────────
+function onRolChange(val) {
+  document.getElementById('otro-rol').style.display = val==='Otro'?'block':'none';
+  const esTecnico = ROLES_TECNICOS.includes(val);
+  document.getElementById('tecnico-block').style.display = esTecnico?'block':'none';
+  const ins = INSIGHTS[val];
+  const panel = document.getElementById('rol-insight');
+  if (ins) {
+    panel.style.display='block';
+    document.getElementById('rol-insight-text').textContent = ins.tip;
+  } else {
+    panel.style.display='none';
+  }
+}
+
+// ── CHIPS ──────────────────────────────────────────────────────────────────
+function toggleChip(btn, group) {
+  const label = btn.textContent.replace('✓ ','').trim();
+  const arr = chips[group];
+  const idx = arr.indexOf(label);
+  if (idx>-1) { arr.splice(idx,1); btn.classList.remove('on'); btn.textContent=label; }
+  else {
+    if (group==='rasgos' && arr.length>=8) { document.getElementById('rasgos-max').style.display='block'; return; }
+    arr.push(label); btn.classList.add('on'); btn.textContent='✓ '+label;
+  }
+  if (group==='rasgos') document.getElementById('rasgos-max').style.display=arr.length>=8?'block':'none';
+}
+
+// ── IDIOMAS ────────────────────────────────────────────────────────────────
+function addIdioma() {
+  const c=document.getElementById('idiomasContainer');
+  const d=document.createElement('div');
+  d.className='g2 idioma-row'; d.style.marginBottom='10px';
+  d.innerHTML='<div><label class="lbl">Idioma</label><select class="idioma-sel"><option>Francés</option><option>Alemán</option><option>Italiano</option><option>Portugués</option><option>Español</option><option>Otro</option></select></div><div><label class="lbl">Nivel</label><select class="nivel-sel"><option>Nativo</option><option>C2</option><option>C1</option><option selected>B2</option><option>B1</option><option>A2</option></select></div>';
+  c.appendChild(d);
+}
+
+// ── EXPERIENCIAS (senior) ──────────────────────────────────────────────────
+let expCount=1;
+function addExp() {
+  expCount++;
+  const d=document.createElement('div');
+  d.className='card exp-card';
+  d.innerHTML=`<div class="card-title">Experiencia ${expCount}</div><div class="g2"><div class="field"><label class="lbl">Empresa</label><input class="exp-empresa" placeholder="Nombre"></div><div class="field"><label class="lbl">Cargo</label><input class="exp-cargo" placeholder="Tu título"></div><div class="field"><label class="lbl">Inicio</label><input class="exp-inicio" placeholder="Mar 2021"></div><div class="field"><label class="lbl">Fin</label><input class="exp-fin" placeholder="Dic 2023 / Presente"></div></div><div class="field"><label class="lbl">¿Qué hacías?</label><textarea class="exp-desc" rows="2" placeholder="Responsabilidades..."></textarea></div><div class="field" style="margin-bottom:0"><label class="lbl">Logros concretos</label><textarea class="exp-logros" rows="2" placeholder="Resultados cuantificables..."></textarea></div><button onclick="this.closest('.exp-card').remove()" style="margin-top:8px;background:none;border:none;color:var(--red);font-size:12px;cursor:pointer;font-family:inherit">✕ Eliminar</button>`;
+  document.getElementById('exp-container').appendChild(d);
+}
+
+// ── TABS RESULTADO ─────────────────────────────────────────────────────────
+function showTab(name, btn) {
+  ['cv','carta','gaps'].forEach(t=>{
+    document.getElementById('tab-'+t).style.display = t===name?'block':'none';
+  });
+  document.querySelectorAll('.tab-doc').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// ── MODAL DOCUMENTO ────────────────────────────────────────────────────────
+let currentModalType = 'cv';
+let cvData = null;
+
+function openModal(tipo_doc) {
+  currentModalType = tipo_doc;
+  renderModalDoc(tipo_doc);
+  document.getElementById('docModal').classList.add('open');
+  document.getElementById('btnSwitch').textContent = tipo_doc==='cv'?'Ver Carta →':'← Ver CV';
+  document.getElementById('modalTitle').textContent = tipo_doc==='cv'?'📄 CV — '+v('nombre')+' '+v('apellidos'):'✉️ Carta — '+v('nombre')+' '+v('apellidos');
+}
+
+function closeModal() { document.getElementById('docModal').classList.remove('open'); }
+
+document.getElementById('btnSwitch').onclick = function() {
+  currentModalType = currentModalType==='cv'?'carta':'cv';
+  openModal(currentModalType);
+};
+
+function renderModalDoc(tipo_doc) {
+  const nombre = v('nombre'), apellidos = v('apellidos'), email = v('email');
+  const telefono = v('telefono'), ciudad = v('ciudad'), linkedin = v('linkedin');
+  const rol = v('rolObjetivo')==='Otro' ? v('otroRol') : (ROLE_LABELS[v('rolObjetivo')]||v('rolObjetivo'));
+  const fecha = new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});
+  const esJunior = tipo==='junior';
+
+  let html = '';
+  if (tipo_doc==='cv') {
+    const exps = esJunior ? (cvData.experienciasFormativas||[]) : (cvData.experiencias||[]);
+    html = `<p class="doc-h1">${nombre} ${apellidos}</p>
+    <p class="doc-meta">${[email,telefono,ciudad,linkedin].filter(Boolean).join(' · ')}</p>
+    <p class="doc-sec">Perfil Profesional</p>
+    <div class="doc-highlight">${cvData.resumenProfesional||''}</div>
+    <p class="doc-sec">${esJunior?'Experiencia Formativa':'Experiencia Profesional'}</p>
+    ${exps.map(e=>`<div style="margin-bottom:12px">
+      <div class="doc-row"><div><div class="doc-cargo">${e.cargo||e.titulo||''}</div><div class="doc-empresa">${e.empresa||e.institucion||''}</div></div><div class="doc-periodo">${e.periodo||''}</div></div>
+      <ul class="doc-ul">${(e.bullets||[]).map(b=>`<li>${b}</li>`).join('')}</ul>
+    </div>`).join('')}
+    ${esJunior?`<p class="doc-sec">Formación Académica</p>
+    <div class="doc-row"><div><strong>${v('carrera')}</strong><div style="font-size:9.5pt;color:#1a3a6b">${v('universidad')}</div>${document.getElementById('tieneTFG').checked?`<div style="font-size:9pt;margin-top:2px"><em>TFG/TFM: ${v('tituloTFG')}</em></div>`:''}</div><div class="doc-periodo">Graduado/a · ${v('anioFin')}</div></div>`
+    :`<p class="doc-sec">Formación Académica</p>
+    <div class="doc-row"><div><strong>${v('sen-titulo')}</strong><div style="font-size:9.5pt;color:#1a3a6b">${v('sen-institucion')}</div></div><div class="doc-periodo">${v('sen-tipo')} · ${v('sen-anio')}</div></div>`}
+    <p class="doc-sec">Idiomas</p>
+    <p style="font-size:10pt">${Array.from(document.querySelectorAll('.idioma-row')).map(r=>`<strong>${r.querySelector('.idioma-sel').value}</strong>: ${r.querySelector('.nivel-sel').value}`).join(' · ')}</p>
+    <p class="doc-sec">Competencias Clave</p>
+    <div class="doc-tags">${(cvData.competenciasClave||[]).map(c=>`<span class="doc-tag">${c}</span>`).join('')}</div>
+    <p class="doc-footer">CV generado con la metodología +QuePíldoras · masquepildoraspodcast.com</p>`;
+  } else {
+    html = `<p style="font-size:10pt;color:#6b7280;margin-bottom:18px">${ciudad}, ${fecha}</p>
+    <p style="font-weight:700;font-size:12pt;color:#0d1f4e;margin-bottom:6px">Carta de Presentación</p>
+    <p style="margin-bottom:14px">Estimado/a equipo de selección,</p>
+    ${(cvData.cartaPresentacion||'').split('\n').filter(p=>p.trim()).map(p=>`<p style="margin-bottom:12px;line-height:1.8">${p}</p>`).join('')}
+    <div style="margin-top:24px"><p style="margin-bottom:4px">Atentamente,</p><p style="font-weight:700">${nombre} ${apellidos}</p><p style="color:#6b7280;font-size:10pt">${email}${telefono?' · '+telefono:''}</p></div>
+    <p class="doc-footer">Generado con la metodología +QuePíldoras · masquepildoraspodcast.com</p>`;
+  }
+  document.getElementById('docPaper').innerHTML = html;
+}
+
+// ── GENERAR CV ─────────────────────────────────────────────────────────────
+async function generarCV() {
+  const btn = document.getElementById('btnGenerar');
+  btn.disabled = true;
+  btn.textContent = '⏳ Generando...';
+  document.getElementById('genError').style.display='none';
+
+  const rol = v('rolObjetivo')==='Otro' ? v('otroRol') : (ROLE_LABELS[v('rolObjetivo')]||v('rolObjetivo'));
+  const esJunior = tipo==='junior';
+  const ins = INSIGHTS[v('rolObjetivo')];
+
+  const idiomas = Array.from(document.querySelectorAll('.idioma-row'))
+    .map(r=>`${r.querySelector('.idioma-sel').value}: ${r.querySelector('.nivel-sel').value}`).join(', ');
+
+  let prompt = '';
+  if (esJunior) {
+    prompt = `Eres un experto en selección de personal de la industria farmacéutica española y redacción de CVs ATS.
+Genera CV, carta de presentación y gaps para un recién graduado que quiere entrar en farma.
+
+CANDIDATO: ${v('nombre')} ${v('apellidos')} | ${v('email')} | ${v('telefono')} | ${v('ciudad')} | ${v('linkedin')}
+ROL OBJETIVO: ${rol}
+MOTIVACIÓN: ${v('motivacion')}
+CARRERA: ${v('carrera')} — ${v('universidad')} (${v('anioFin')})${v('notaMedia')?' — Nota: '+v('notaMedia'):''}
+${document.getElementById('tieneTFG').checked?'TFG/TFM: '+v('tituloTFG')+' — '+v('descTFG'):'Sin TFG indicado'}
+RASGOS: ${chips.rasgos.join(', ')}
+ACTIVIDADES: ${chips.actividades.join(', ')}
+DESC ACTIVIDADES: ${v('descActividades')}
+${chips.tecnicas.length?'TÉCNICAS LABORATORIO: '+chips.tecnicas.join(', '):''}
+${chips.entorno.length?'ENTORNO: '+chips.entorno.join(', '):''}
+${v('softwareTecnico')?'SOFTWARE: '+v('softwareTecnico'):''}
+IDIOMAS: ${idiomas}
+COMPETENCIAS: ${chips.comp.join(', ')} ${v('otrasComp')}
+${ins?`INSIGHTS DEL SECTOR (${ins.fuente}): ${ins.frase} Consejo: ${ins.consejo}`:''}
+
+INSTRUCCIONES:
+1. Transforma rasgos en competencias concretas de farma
+2. Transforma actividades en experiencias con valor para el sector
+3. Usa las skills críticas del hiring manager si las hay
+4. Sé honesto en los gaps
+
+Devuelve SOLO JSON sin markdown:
+{"resumenProfesional":"3-4 frases orientadas al rol","experienciasFormativas":[{"titulo":"nombre actividad","institucion":"institución","periodo":"fechas","bullets":["competencia clave farma","otro punto"]}],"competenciasClave":["hasta 10 competencias en lenguaje farma"],"cartaPresentacion":"carta completa 3 párrafos: motivación, qué aporta, cierre","gaps":[{"gap":"qué le falta","consejo":"acción concreta para compensarlo"}]}`;
+  } else {
+    const exps = Array.from(document.querySelectorAll('.exp-card')).map((c,i)=>`Exp ${i+1}: ${c.querySelector('.exp-cargo').value} en ${c.querySelector('.exp-empresa').value} (${c.querySelector('.exp-inicio').value}-${c.querySelector('.exp-fin').value}): ${c.querySelector('.exp-desc').value}. Logros: ${c.querySelector('.exp-logros').value}`).join('\n');
+    prompt = `Eres un experto en redacción de CVs para la industria farmacéutica española.
+Genera CV, carta de presentación y gaps para profesional con experiencia.
+
+CANDIDATO: ${v('nombre')} ${v('apellidos')} | ${v('email')} | ${v('telefono')} | ${v('ciudad')} | ${v('linkedin')}
+ROL OBJETIVO: ${rol}
+RESUMEN CANDIDATO: ${v('sen-resumen')}
+EXPERIENCIAS: ${exps}
+FORMACIÓN: ${v('sen-tipo')}: ${v('sen-titulo')} — ${v('sen-institucion')} (${v('sen-anio')})
+IDIOMAS: ${idiomas}
+COMPETENCIAS: ${chips.comp.join(', ')} ${v('otrasComp')}
+${chips.tecnicas.length?'TÉCNICAS: '+chips.tecnicas.join(', '):''}
+
+Devuelve SOLO JSON sin markdown:
+{"resumenProfesional":"3-4 frases con keywords ATS","experiencias":[{"empresa":"nombre","cargo":"cargo","periodo":"periodo","bullets":["logro con verbo acción","responsabilidad"]}],"formaciones":[{"titulo":"título","institucion":"institución","anio":"año","tipo":"tipo"}],"competenciasClave":["hasta 10 competencias farma"],"cartaPresentacion":"carta 3 párrafos orientada al rol","gaps":[{"gap":"qué le falta","consejo":"cómo compensarlo"}]}`;
+  }
+
+  try {
+    const apiKey = document.getElementById('apiKeyInput').value.trim();
+    if (!apiKey) {
+      document.getElementById('genError').textContent = 'Introduce la API Key antes de generar.';
+      document.getElementById('genError').style.display = 'block';
+      btn.textContent = '✨ Generar CV + Carta + Tips →';
+      btn.disabled = false;
+      return;
+    }
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:4000,messages:[{role:'user',content:prompt}]})
+    });
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    const d = await res.json();
+    if (d.error) throw new Error(d.error.message);
+    const text = d.content?.find(b=>b.type==='text')?.text||'';
+    const m = text.match(/\{[\s\S]*\}/);
+    if (!m) throw new Error('Sin JSON en respuesta');
+    cvData = JSON.parse(m[0].replace(/,\s*([}\]])/g,'$1'));
+
+    // Mostrar resultado
+    renderResultado();
+    document.getElementById('genIcon').textContent='🎉';
+    document.getElementById('genTitle').textContent='¡Tu pack está listo!';
+    document.getElementById('genSubtitle').textContent='CV, carta de presentación y análisis de gaps generados con insights reales del sector.';
+    btn.textContent='🔄 Regenerar';
+    btn.disabled=false;
+    document.getElementById('resultado').style.display='block';
+
+  } catch(e) {
+    document.getElementById('genError').textContent='Error: '+e.message;
+    document.getElementById('genError').style.display='block';
+    btn.textContent='✨ Generar CV + Carta + Tips →';
+    btn.disabled=false;
+  }
+}
+
+function renderResultado() {
+  const esJunior = tipo==='junior';
+  const exps = esJunior ? (cvData.experienciasFormativas||[]) : (cvData.experiencias||[]);
+
+  // CV preview
+  document.getElementById('cv-resumen').textContent = cvData.resumenProfesional||'';
+  document.getElementById('cv-exps').innerHTML = exps.map(e=>`
+    <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px">
+        <div><p style="font-weight:700;font-size:14px;margin:0">${e.cargo||e.titulo||''}</p><p style="font-size:12px;color:var(--blue);font-weight:600;margin:1px 0">${e.empresa||e.institucion||''}</p></div>
+        <p style="font-size:11px;color:var(--muted);margin:0">${e.periodo||''}</p>
+      </div>
+      <ul style="margin:5px 0 0 14px;padding:0">${(e.bullets||[]).map(b=>`<li style="font-size:13px;margin-bottom:2px">${b}</li>`).join('')}</ul>
+    </div>`).join('');
+  document.getElementById('cv-comps').innerHTML = (cvData.competenciasClave||[]).map(c=>`<span class="tag">${c}</span>`).join('');
+
+  // Carta preview
+  document.getElementById('carta-preview').innerHTML = (cvData.cartaPresentacion||'').split('\n').filter(p=>p.trim()).map(p=>`<p style="margin-bottom:12px">${p}</p>`).join('');
+
+  // Gaps
+  document.getElementById('gaps-list').innerHTML = (cvData.gaps||[]).map(g=>`
+    <div class="gap-card">
+      <p class="gap-title">⚠️ ${g.gap}</p>
+      <p class="gap-tip">💡 <strong>Consejo:</strong> ${g.consejo}</p>
+    </div>`).join('');
+
+  // Insight panel
+  const ins = INSIGHTS[v('rolObjetivo')];
+  if (ins) {
+    document.getElementById('insight-panel').style.display='block';
+    document.getElementById('insight-fuente').textContent=ins.fuente;
+    document.getElementById('insight-frase').textContent=ins.frase;
+    document.getElementById('insight-consejo').textContent=ins.consejo;
+  }
+}
+
+updateProgress();
+</script>
+</body>
+</html>
